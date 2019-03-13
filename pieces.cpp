@@ -25,6 +25,9 @@ const Pieces PIECES = {
   { ARROSOIR_INVERSE, DAME_HAUT, GATEAU_DROIT, FILLE_BAS },
 };
 
+const MatchingAttachement MATCHING_ATTACHEMENT = {
+  FILLE_BAS, FILLE_HAUT, DAME_BAS, DAME_HAUT, ARROSOIR_DROIT, ARROSOIR_GAUCHE, GATEAU_DROIT, GATEAU_GAUCHE, NONE, NONE
+};
 
 void displayPiece(size_t pieceNb, const Orientations& PIECES_ORIENTATIONS) {
     char orientation = 'a' + PIECES_ORIENTATIONS.at(pieceNb);
@@ -107,4 +110,11 @@ void placePiece(Pieces used, Pieces available, Orientations orientations) {
             // turn;
         }
     }
+}
+
+bool areMatchingPieces(const AttachementType fixedPiece,const AttachementType testPiece) {
+  if( fixedPiece < 8 && testPiece < 8) {
+    return MATCHING_ATTACHEMENT.at(testPiece) == fixedPiece ? true : false;
+  }
+  return false;
 }

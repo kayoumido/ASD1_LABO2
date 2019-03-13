@@ -133,5 +133,36 @@ int main() {
 
     displayPieces(usedPieces, piecesOrientations);
 
+    // tests areMatchingPieces
+
+    // cout << boolalpha << areMatchingPieces(FILLE_BAS, FILLE_HAUT) << endl;
+    // cout << boolalpha << areMatchingPieces(FILLE_HAUT, FILLE_BAS) << endl;
+    //
+    // cout << boolalpha << areMatchingPieces(DAME_BAS, DAME_HAUT) << endl;
+    // cout << boolalpha << areMatchingPieces(DAME_HAUT, DAME_BAS) << endl;
+    //
+    // cout << boolalpha << areMatchingPieces(GATEAU_DROIT, GATEAU_GAUCHE) << endl;
+    // cout << boolalpha << areMatchingPieces(GATEAU_GAUCHE, GATEAU_DROIT) << endl;
+    //
+    // cout << boolalpha << areMatchingPieces(ARROSOIR_DROIT, ARROSOIR_GAUCHE) << endl;
+    // cout << boolalpha << areMatchingPieces(ARROSOIR_GAUCHE, ARROSOIR_DROIT) << endl;
+    //
+    // cout << boolalpha << areMatchingPieces(ARROSOIR_DROIT, DAME_BAS) << endl;
+    // cout << boolalpha << areMatchingPieces(ARROSOIR_GAUCHE,FILLE_HAUT) << endl;
+    //
+    // cout << boolalpha << areMatchingPieces(GATEAU_DROIT, ARROSOIR_GAUCHE) << endl;
+    // cout << boolalpha << areMatchingPieces(DAME_BAS, ARROSOIR_DROIT) << endl;
+    //
+    // cout << boolalpha << areMatchingPieces(ARROSOIR_INVERSE, ARROSOIR_GAUCHE) << endl;
+    // cout << boolalpha << areMatchingPieces(DAME_BAS, ARROSOIR_INVERSE) << endl;
+    //
+    // cout << boolalpha << areMatchingPieces(ARROSOIR_INVERSE, NONE) << endl;
+    // cout << boolalpha << areMatchingPieces(DAME_BAS, NONE) << endl;
+    //
+    // cout << boolalpha << areMatchingPieces(NONE, NONE) << endl;
+    // cout << boolalpha << areMatchingPieces(ARROSOIR_INVERSE, ARROSOIR_INVERSE) << endl;
+    //
+
+
     return 0;
 }
