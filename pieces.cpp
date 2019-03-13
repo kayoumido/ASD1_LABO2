@@ -21,12 +21,20 @@ const Pieces PIECES = {
         {FILLE_BAS,        DAME_HAUT,       ARROSOIR_DROIT,  GATEAU_DROIT},
         {DAME_BAS,         GATEAU_GAUCHE,   FILLE_HAUT,      ARROSOIR_DROIT},
         {FILLE_BAS,        ARROSOIR_GAUCHE, DAME_HAUT,       GATEAU_DROIT},
-        {DAME_BAS,         ARROSOIR_GAUCHE, GATEAU_DROIT,    FILLE_HAUT},
-        {ARROSOIR_INVERSE, DAME_HAUT,       GATEAU_DROIT,    FILLE_BAS},
+        {DAME_BAS,         ARROSOIR_GAUCHE, GATEAU_DROIT,    FILLE_HAUT},/*
+        {ARROSOIR_INVERSE, DAME_HAUT,       GATEAU_DROIT,    FILLE_BAS},*/
 };
 
 const MatchingAttachement MATCHING_ATTACHEMENT = {
-        FILLE_BAS, FILLE_HAUT, DAME_BAS, DAME_HAUT, ARROSOIR_DROIT, ARROSOIR_GAUCHE, GATEAU_DROIT, GATEAU_GAUCHE, NONE,
+        FILLE_BAS,
+        FILLE_HAUT,
+        DAME_BAS,
+        DAME_HAUT,
+        ARROSOIR_DROIT,
+        ARROSOIR_GAUCHE,
+        GATEAU_DROIT,
+        GATEAU_GAUCHE,
+        NONE,
         NONE
 };
 
@@ -42,9 +50,9 @@ void displayPieces(const Pieces &PIECES, const Orientations &PIECES_ORIENTATIONS
     cout << endl;
 }
 
-bool pieceMatchesWithBoard(const Pieces &BOARD, const Piece &TO_INSERT) {
+bool pieceMatchesWithBoard(const Pieces &BOARD, const Orientations &orientations, const Piece &TO_INSERT) {
 
-    size_t position = BOARD.size();
+    size_t position = BOARD.size() - 1;
 
     if (position == 0) {
         return true;
@@ -56,7 +64,13 @@ bool pieceMatchesWithBoard(const Pieces &BOARD, const Piece &TO_INSERT) {
         // then we only need to check if we match with the piece on the left
         Piece leftPiece = BOARD.at(position - 1);
 
-        return areMatchingPieces(leftPiece.at(Sides::RIGHT), TO_INSERT.at(Sides::LEFT));
+        Sides currentOrientation    = orientations.at(position);
+        Sides leftOrientation       = orientations.at(position - 1);
+
+        AttachementType currentAttachement  = TO_INSERT.at((Sides::LEFT + currentOrientation) % NB_SIDES);
+        AttachementType leftAttachement     = leftPiece.at((Sides::RIGHT + leftOrientation) % NB_SIDES);
+
+        return areMatchingPieces(leftAttachement, currentAttachement);
     }
 
     // check if we're in the first col
@@ -65,49 +79,67 @@ bool pieceMatchesWithBoard(const Pieces &BOARD, const Piece &TO_INSERT) {
         // then we only need to check if we match with the piece above
         Piece topPiece = BOARD.at(position - PIECE_BY_LINE);
 
-        return areMatchingPieces(topPiece.at(Sides::DOWN), TO_INSERT.at(Sides::UP));
+        Sides currentOrientation    = orientations.at(position);
+        Sides topOrientation        = orientations.at(position - PIECE_BY_LINE);
+
+        AttachementType currentAttachement  = TO_INSERT.at((Sides::UP + currentOrientation) % NB_SIDES);
+        AttachementType topAttachement      = topPiece.at((Sides::DOWN + topOrientation) % NB_SIDES);
+
+        return areMatchingPieces(topAttachement, currentAttachement);
     }
 
     // since we aren't in the first row or col, we need to check the piece on the left and above
     Piece topPiece = BOARD.at(position - PIECE_BY_LINE);
     Piece leftPiece = BOARD.at(position - 1);
 
+    Sides currentOrientation    = orientations.at(position);
+    Sides leftOrientation       = orientations.at(position - 1);
+    Sides topOrientation        = orientations.at(position - PIECE_BY_LINE);
 
-    return areMatchingPieces(leftPiece.at(Sides::RIGHT), TO_INSERT.at(Sides::LEFT)) and
-           areMatchingPieces(topPiece.at(Sides::DOWN), TO_INSERT.at(Sides::UP));
+    AttachementType currentAttachement  = TO_INSERT.at((Sides::LEFT + currentOrientation) % NB_SIDES);
+    AttachementType leftAttachement     = leftPiece.at((Sides::RIGHT + leftOrientation) % NB_SIDES);
+    AttachementType topAttachement      = topPiece.at((Sides::DOWN + topOrientation) % NB_SIDES);
+
+
+    return areMatchingPieces(leftAttachement, currentAttachement) and
+           areMatchingPieces(topAttachement, currentAttachement);
 }
 
 void placePiece(Pieces used, Pieces available, Orientations orientations) {
 
-    Pieces impossibleToUse;
 
     if (available.empty()) {
         displayPieces(used, orientations);
     } else {
         // loop through the available pieces
         for (size_t pieceNb = 0; pieceNb < available.size(); ++pieceNb) {
+            //Pieces impossibleToUse;
 
             Piece current = available.at(pieceNb);
             auto currentIt = available.begin() + pieceNb;
 
             // check if the current piece can be used
-            if (find(impossibleToUse.begin(), impossibleToUse.end(), current) != impossibleToUse.end()) continue;
+            //if (find(impossibleToUse.begin(), impossibleToUse.end(), current) != impossibleToUse.end()) continue;
+
+            used.push_back(current);
+            orientations.push_back((Sides)0);
+            available.erase(currentIt);
 
             // test all sides of the current piece
             for (size_t side = 0; side < NB_SIDES; ++side) {
+                orientations.at(used.size() - 1) = (Sides)side;
+
                 // check if we can add
-                if (pieceMatchesWithBoard(used, current)) {
-                    used.push_back(current);
-                    orientations.push_back((Sides) side);
-                    available.erase(currentIt);
+                if (pieceMatchesWithBoard(used, orientations, current)) {
                     placePiece(used, available, orientations);
                 }
-                turnPiece(pieceNb, orientations);
+
             }
 
             // the current piece can't be used at the current position
-            impossibleToUse.push_back(current);
+            //impossibleToUse.push_back(current);
             used.pop_back();
+            orientations.pop_back();
             available.insert(currentIt, current);
         }
     }
@@ -121,8 +153,13 @@ bool areMatchingPieces(const AttachementType fixedPiece, const AttachementType t
 }
 
 void turnPiece(const size_t PIECE_NB, Orientations &piecesOrientations) {
-    Sides orientation = piecesOrientations.at(PIECE_NB);
-    Sides newOrientation = (orientation == (NB_SIDES - 1) ? (Sides) 0 : Sides(orientation + 1));
-    piecesOrientations.at(PIECE_NB) = newOrientation;
+    try {
+        Sides orientation = piecesOrientations.at(PIECE_NB);
+        Sides newOrientation = (orientation == (NB_SIDES - 1) ? (Sides) 0 : Sides(orientation + 1));
+        piecesOrientations.at(PIECE_NB) = newOrientation;
+
+    } catch (const std::exception& e) {
+        cout << e.what();
+    }
 }
 

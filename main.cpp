@@ -126,9 +126,25 @@ int main() {
 
     placePiece(usedPieces, availablePieces, piecesOrientations);
     /*
+
     Piece p1 = availablePieces.at(0);
     Piece p2 = availablePieces.at(1);
+    Piece p3 = availablePieces.at(2);
 
+    usedPieces.push_back(p1);
+    usedPieces.push_back(p2);
+    //usedPieces.push_back(p3);
+    piecesOrientations.push_back((Sides)3);
+    piecesOrientations.push_back((Sides)0);
+    //piecesOrientations.push_back((Sides)0);
+
+    /*
+    displayPiece(0, piecesOrientations);
+    displayPiece(1, piecesOrientations);
+    displayPiece(1, piecesOrientations);
+    */
+    //cout << pieceMatchesWithBoard(usedPieces, piecesOrientations, p2);
+    /*
     usedPieces.push_back(p1);
     usedPieces.push_back(p2);
     piecesOrientations.push_back(Sides::UP);
