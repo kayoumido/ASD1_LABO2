@@ -31,6 +31,13 @@ void displayPiece(size_t pieceNb, const Orientations& PIECES_ORIENTATIONS) {
     cout << ++pieceNb << orientation << " ";
 }
 
+void displayPieces(const Pieces& PIECES, const PiecesSides& PIECES_ORIENTATIONS) {
+    for(size_t pieceNb = 0; pieceNb < PIECES.size(); ++pieceNb) {
+        displayPiece(pieceNb, PIECES_ORIENTATIONS);
+    }
+    cout << endl;
+}
+
 
 bool pieceMatchesWithBoard(const Pieces& BOARD, const Piece &TO_INSERT) {
 
