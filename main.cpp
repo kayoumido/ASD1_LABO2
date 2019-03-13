@@ -124,6 +124,8 @@ int main() {
     Pieces usedPieces;
     Orientations piecesOrientations;
 
+    placePiece(usedPieces, availablePieces, piecesOrientations);
+    /*
     Piece p1 = availablePieces.at(0);
     Piece p2 = availablePieces.at(1);
 
@@ -141,7 +143,7 @@ int main() {
     displayPiece(0, piecesOrientations);
     turnPiece(0, piecesOrientations);
     displayPiece(0, piecesOrientations);
-
+    */
     // tests areMatchingPieces
 
     // cout << boolalpha << areMatchingPieces(FILLE_BAS, FILLE_HAUT) << endl;
