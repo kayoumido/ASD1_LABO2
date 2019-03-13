@@ -34,13 +34,12 @@ void displayPiece(size_t pieceNb, const Orientations& PIECES_ORIENTATIONS) {
     cout << ++pieceNb << orientation << " ";
 }
 
-void displayPieces(const Pieces& PIECES, const PiecesSides& PIECES_ORIENTATIONS) {
+void displayPieces(const Pieces& PIECES, const Orientations& PIECES_ORIENTATIONS) {
     for(size_t pieceNb = 0; pieceNb < PIECES.size(); ++pieceNb) {
         displayPiece(pieceNb, PIECES_ORIENTATIONS);
     }
     cout << endl;
 }
-
 
 bool pieceMatchesWithBoard(const Pieces& BOARD, const Piece &TO_INSERT) {
 
@@ -118,3 +117,10 @@ bool areMatchingPieces(const AttachementType fixedPiece,const AttachementType te
   }
   return false;
 }
+
+void turnPiece(const size_t PIECE_NB, Orientations& piecesOrientations) {
+    Sides orientation = piecesOrientations.at(PIECE_NB);
+    Sides newOrientation = (orientation == (NB_SIDES - 1) ? (Sides)0 : Sides(orientation + 1));
+    piecesOrientations.at(PIECE_NB) = newOrientation;
+}
+

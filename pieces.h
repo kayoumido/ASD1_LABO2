@@ -34,6 +34,8 @@ void displayPieces(const Pieces& PIECES, const Orientations& PIECES_ORIENTATIONS
 
 bool pieceMatchesWithBoard(const Pieces& BOARD, const Piece &TO_INSERT, size_t position);
 
+void turnPiece(const size_t PIECE_NB, Orientations& piecesOrientations);
+
 void placePiece(Pieces used, Pieces available, Orientations orientations);
 
 bool areMatchingPieces(const AttachementType fixedPiece, const AttachementType testPiece);
