@@ -29,3 +29,34 @@ void displayPiece(size_t pieceNb, const PiecesSides& PIECES_ORIENTATIONS) {
     char orientation = 'a' + PIECES_ORIENTATIONS.at(pieceNb);
     cout << ++pieceNb << orientation << " ";
 }
+
+
+bool pieceMatchesWithBoard(const Pieces& BOARD, const Piece &TO_INSERT) {
+
+    size_t positionToInsertAt = BOARD.size();
+
+    // check if we're in the first row
+    if (positionToInsertAt < PIECE_BY_LINE) {
+        // then we only need to check if we match with the piece on the left
+        Piece leftPiece = BOARD.at(positionToInsertAt - 1);
+
+        // return isTwoPiecesMatching(leftPiece.at(Sides::RIGHT), TO_INSERT.at(Sides::LEFT));
+    }
+
+    // check if we're in the first col
+    if (positionToInsertAt % PIECE_BY_LINE == 0) {
+        // then we only need to check if we match with the piece above
+        Piece topPiece = BOARD.at(positionToInsertAt - PIECE_BY_LINE);
+
+        // return isTwoPiecesMatching(topPiece.at(Sides::DOWN), TO_INSERT.at(Sides::UP));
+    }
+
+    // since we aren't in the first row or col, we need to check the piece on the left and above
+    Piece topPiece = BOARD.at(positionToInsertAt - PIECE_BY_LINE);
+    Piece leftPiece = BOARD.at(positionToInsertAt - 1);
+
+    /*
+    return  isTwoPiecesMatching(leftPiece.at(Sides::RIGHT), TO_INSERT.at(Sides::LEFT)) and
+            isTwoPiecesMatching(topPiece.at(Sides::DOWN), TO_INSERT.at(Sides::UP));
+    */
+}

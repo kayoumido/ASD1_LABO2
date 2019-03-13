@@ -7,8 +7,7 @@ using namespace std;
 /*
 
 //Enum des cotes d'une piece
-const unsigned PIECE_BY_LINE = 3;
-const unsigned MAX_ID_TO_BE_A_PAIR = 7;
+
 
 
 void turnPiece(Piece& piece) {
@@ -79,7 +78,7 @@ bool pieceMatchWithBoard(const Pieces& BOARD, const Piece& PIECE_TO_ADD) {
         // We will put the new piece in the first position in the line -> Pair to check : Piece on board upper (bottom side) with new piece (upper side)
         if((BOARD.size() % PIECE_BY_LINE) == 0) {
             piecesIsMatching = isTwoPiecesMatching(PIECE_BOARD_UPPER_NEW, Sides::DOWN, PIECE_TO_ADD, Sides::UP);
-        }isTwoPiecesMatching
+        }
         // We will put the new piece every where else => Pairs to check :
         // 1. last piece on board (right side) with new piece (left side)
         // 2. Piece on board upper (bottom side) with new piece (upper side)
