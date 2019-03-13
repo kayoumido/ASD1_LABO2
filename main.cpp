@@ -4,10 +4,9 @@
 
 using namespace std;
 
+/*
 
 //Enum des cotes d'une piece
-enum class Sides {UP, RIGHT, DOWN, LEFT};
-const unsigned ALL_SIDES_DEFINED = 4;
 const unsigned PIECE_BY_LINE = 3;
 const unsigned MAX_ID_TO_BE_A_PAIR = 7;
 
@@ -117,46 +116,26 @@ void putPieceOnBoard(Pieces usedPieces, Pieces availablePieces) {
     }
 }
 
-
+*/
 
 int main() {
 
     Pieces availablePieces = PIECES;
     Pieces usedPieces;
+    PiecesSides piecesOrientations;
 
-    putPieceOnBoard(usedPieces, availablePieces);
+    Piece p1 = availablePieces.at(0);
+    Piece p2 = availablePieces.at(1);
 
-    Piece p9 = PIECES.at(8);
-    Piece p5 = PIECES.at(4);
-    turnPiece(p9);
-    turnPiece(p9);
-    turnPiece(p9);
-    displayPiece(p9);
-    displayPiece(p5);
-    cout << endl;
-    cout << p9.at((unsigned)Sides::DOWN) << endl;
-    cout << p5.at((unsigned)Sides::UP) << endl;
-    cout << isTwoPiecesMatching(p9, Sides::DOWN, p5, Sides::UP);
+    usedPieces.push_back(p1);
+    usedPieces.push_back(p2);
+    piecesOrientations.push_back(Sides::UP);
+    piecesOrientations.push_back(Sides::RIGHT);
 
-
-    /*Piece p1 = PIECES.at(6);
-    Piece p2 = PIECES.at(3);
-
-    turnPiece(p1);
-    turnPiece(p1);
-    turnPiece(p1);
-    turnPiece(p2);
-    turnPiece(p2);
-    turnPiece(p2);
+    for(size_t pieceNb = 0; pieceNb < usedPieces.size(); ++pieceNb) {
+        displayPiece(pieceNb, piecesOrientations);
+    }
 
 
-    cout << p1.at((unsigned)Sides::RIGHT) << endl;
-    cout << p2.at((unsigned)Sides::LEFT) << endl;
-
-    displayPiece(p1);
-    displayPiece(p2);
-    cout << isTwoPiecesMatching(p1, Sides::RIGHT, p2, Sides::LEFT);
-
-*/
     return 0;
 }

@@ -8,6 +8,10 @@
 
 #include "pieces.h"
 
+#include <iostream>
+
+using namespace std;
+
 const Pieces PIECES = {
   { DAME_HAUT, GATEAU_DROIT, ARROSOIR_GAUCHE, FILLE_HAUT },
   { DAME_BAS, ARROSOIR_GAUCHE, FILLE_HAUT, GATEAU_DROIT },
@@ -19,3 +23,9 @@ const Pieces PIECES = {
   { DAME_BAS, ARROSOIR_GAUCHE, GATEAU_DROIT, FILLE_HAUT },
   { ARROSOIR_INVERSE, DAME_HAUT, GATEAU_DROIT, FILLE_BAS },
 };
+
+
+void displayPiece(size_t pieceNb, const PiecesSides& PIECES_ORIENTATIONS) {
+    char orientation = 'a' + PIECES_ORIENTATIONS.at(pieceNb);
+    cout << ++pieceNb << orientation << " ";
+}
