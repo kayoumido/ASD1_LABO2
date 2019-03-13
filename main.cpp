@@ -131,10 +131,7 @@ int main() {
     piecesOrientations.push_back(Sides::UP);
     piecesOrientations.push_back(Sides::RIGHT);
 
-    for(size_t pieceNb = 0; pieceNb < usedPieces.size(); ++pieceNb) {
-        displayPiece(pieceNb, piecesOrientations);
-    }
-
+    displayPieces(usedPieces, piecesOrientations);
 
     return 0;
 }
