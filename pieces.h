@@ -16,9 +16,9 @@ enum AttachementType { FILLE_HAUT, FILLE_BAS, DAME_HAUT, DAME_BAS, ARROSOIR_GAUC
 enum Sides {UP, RIGHT, DOWN, LEFT};
 
 
-using Piece = std::array<AttachementType,4>;
-using Pieces = std::vector<Piece>;
-using PiecesSides = std::vector<Sides>;
+using Piece         = std::array<AttachementType,4>;
+using Pieces        = std::vector<Piece>;
+using Orientations  = std::vector<Sides>;
 
 
 extern const Pieces PIECES;
@@ -26,8 +26,11 @@ extern const Pieces PIECES;
 const unsigned NB_SIDES = 4;
 const unsigned PIECE_BY_LINE = 3;
 
-void displayPiece(size_t pieceNb, const PiecesSides& PIECES_ORIENTATIONS);
+
+void displayPiece(size_t pieceNb, const Orientations& PIECES_ORIENTATIONS);
 
 bool pieceMatchesWithBoard(const Pieces& BOARD, const Piece &TO_INSERT, size_t position);
+
+void placePiece(Pieces used, Pieces available, Orientations orientations);
 
 #endif /* pieces_h */

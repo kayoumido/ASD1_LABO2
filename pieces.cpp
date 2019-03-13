@@ -9,6 +9,7 @@
 #include "pieces.h"
 
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -25,7 +26,7 @@ const Pieces PIECES = {
 };
 
 
-void displayPiece(size_t pieceNb, const PiecesSides& PIECES_ORIENTATIONS) {
+void displayPiece(size_t pieceNb, const Orientations& PIECES_ORIENTATIONS) {
     char orientation = 'a' + PIECES_ORIENTATIONS.at(pieceNb);
     cout << ++pieceNb << orientation << " ";
 }
@@ -33,30 +34,70 @@ void displayPiece(size_t pieceNb, const PiecesSides& PIECES_ORIENTATIONS) {
 
 bool pieceMatchesWithBoard(const Pieces& BOARD, const Piece &TO_INSERT) {
 
-    size_t positionToInsertAt = BOARD.size();
+    size_t position = BOARD.size();
+
+    if (position == 0) {
+        return true;
+    }
 
     // check if we're in the first row
-    if (positionToInsertAt < PIECE_BY_LINE) {
+    if (position < PIECE_BY_LINE) {
         // then we only need to check if we match with the piece on the left
-        Piece leftPiece = BOARD.at(positionToInsertAt - 1);
+        Piece leftPiece = BOARD.at(position - 1);
 
         // return isTwoPiecesMatching(leftPiece.at(Sides::RIGHT), TO_INSERT.at(Sides::LEFT));
     }
 
     // check if we're in the first col
-    if (positionToInsertAt % PIECE_BY_LINE == 0) {
+    if (position % PIECE_BY_LINE == 0) {
         // then we only need to check if we match with the piece above
-        Piece topPiece = BOARD.at(positionToInsertAt - PIECE_BY_LINE);
+        Piece topPiece = BOARD.at(position - PIECE_BY_LINE);
 
         // return isTwoPiecesMatching(topPiece.at(Sides::DOWN), TO_INSERT.at(Sides::UP));
     }
 
     // since we aren't in the first row or col, we need to check the piece on the left and above
-    Piece topPiece = BOARD.at(positionToInsertAt - PIECE_BY_LINE);
-    Piece leftPiece = BOARD.at(positionToInsertAt - 1);
+    Piece topPiece = BOARD.at(position - PIECE_BY_LINE);
+    Piece leftPiece = BOARD.at(position - 1);
 
     /*
     return  isTwoPiecesMatching(leftPiece.at(Sides::RIGHT), TO_INSERT.at(Sides::LEFT)) and
             isTwoPiecesMatching(topPiece.at(Sides::DOWN), TO_INSERT.at(Sides::UP));
     */
+}
+
+void placePiece(Pieces used, Pieces available, Orientations orientations) {
+
+    Pieces imposibleToUse;
+
+    if (available.empty()) {
+        // displayPieces(used, orientations);
+    } else {
+        // loop through the available pieces
+        for (size_t pieceNb = 0; pieceNb < available.size(); ++pieceNb) {
+
+            Piece current = available.at(pieceNb);
+            auto currentIt = available.begin() + pieceNb;
+
+            // check if the current piece can be used
+            if (find(imposibleToUse.begin(), imposibleToUse.end(), current) != imposibleToUse.end()) continue;
+
+            // test all sides of the current piece
+            for (size_t side = 0; side < NB_SIDES; ++side) {
+                // check if we can add
+                if (pieceMatchesWithBoard(used, current)) {
+                    used.push_back(current);
+                    available.erase(currentIt);
+                    placePiece(used, available, orientations);
+                }
+            }
+
+            // the current piece can't be used at the current position
+            imposibleToUse.push_back(current);
+            used.pop_back();
+            available.insert(currentIt, current);
+
+            // turn;
+        }
+    }
 }

@@ -121,7 +121,7 @@ int main() {
 
     Pieces availablePieces = PIECES;
     Pieces usedPieces;
-    PiecesSides piecesOrientations;
+    Orientations piecesOrientations;
 
     Piece p1 = availablePieces.at(0);
     Piece p2 = availablePieces.at(1);
