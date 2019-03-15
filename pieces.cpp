@@ -21,8 +21,8 @@ const Pieces PIECES = {
         {FILLE_BAS,        DAME_HAUT,       ARROSOIR_DROIT,  GATEAU_DROIT},
         {DAME_BAS,         GATEAU_GAUCHE,   FILLE_HAUT,      ARROSOIR_DROIT},
         {FILLE_BAS,        ARROSOIR_GAUCHE, DAME_HAUT,       GATEAU_DROIT},
-        {DAME_BAS,         ARROSOIR_GAUCHE, GATEAU_DROIT,    FILLE_HAUT},/*
-        {ARROSOIR_INVERSE, DAME_HAUT,       GATEAU_DROIT,    FILLE_BAS},*/
+        {DAME_BAS,         ARROSOIR_GAUCHE, GATEAU_DROIT,    FILLE_HAUT},
+        {ARROSOIR_INVERSE, DAME_HAUT,       GATEAU_DROIT,    FILLE_BAS},
 };
 
 const MatchingAttachement MATCHING_ATTACHEMENT = {
@@ -39,21 +39,21 @@ const MatchingAttachement MATCHING_ATTACHEMENT = {
 };
 
 
-void displayPiece(size_t pieceNb, const Orientations &PIECES_ORIENTATIONS) {
-    char orientation = 'a' + PIECES_ORIENTATIONS.at(pieceNb);
+void displayPiece(size_t pieceNb, size_t piecePosition, const Orientations &PIECES_ORIENTATIONS) {
+    char orientation = 'a' + PIECES_ORIENTATIONS.at(piecePosition);
     cout << ++pieceNb << orientation << " ";
 }
 
 void displayPieces(const Pieces &TO_DISPLAY, const Orientations &PIECES_ORIENTATIONS) {
-    for (size_t pieceNb = 0; pieceNb < TO_DISPLAY.size(); ++pieceNb) {
+    for (size_t piecePosition = 0; piecePosition < TO_DISPLAY.size(); ++piecePosition) {
 
-        Piece current = TO_DISPLAY.at(pieceNb);
+        Piece current = TO_DISPLAY.at(piecePosition);
 
         auto realIt = find(PIECES.begin(), PIECES.end(), current);
 
-        auto realPosition = distance(PIECES.begin(), realIt);
+        size_t pieceNb = (size_t)distance(PIECES.begin(), realIt);
 
-        displayPiece(realPosition, PIECES_ORIENTATIONS);
+        displayPiece(pieceNb, piecePosition, PIECES_ORIENTATIONS);
     }
     cout << endl;
 }

@@ -124,22 +124,24 @@ int main() {
     Pieces usedPieces;
     Orientations piecesOrientations;
 
-    placePiece(usedPieces, availablePieces, piecesOrientations);
+    //placePiece(usedPieces, availablePieces, piecesOrientations);
 
-    /*
+
     Piece p1 = availablePieces.at(0);
     Piece p2 = availablePieces.at(1);
-    Piece p3 = availablePieces.at(2);
+    Piece p3 = availablePieces.at(5);
 
-    cout << areMatchingPieces(FILLE_BAS, GATEAU_DROIT);
+   // cout << areMatchingPieces(FILLE_BAS, GATEAU_DROIT);
 
 
-    usedPieces.push_back(p1);
+    usedPieces.push_back(p3);
     usedPieces.push_back(p2);
-    //usedPieces.push_back(p3);
-    piecesOrientations.push_back((Sides)3);
+    usedPieces.push_back(p1);
+    piecesOrientations.push_back((Sides)2);
     piecesOrientations.push_back((Sides)0);
-    //piecesOrientations.push_back((Sides)0);
+    piecesOrientations.push_back((Sides)3);
+
+    displayPieces(usedPieces, piecesOrientations);
 
     /*
     displayPiece(0, piecesOrientations);
