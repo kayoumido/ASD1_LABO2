@@ -38,14 +38,22 @@ const MatchingAttachement MATCHING_ATTACHEMENT = {
         NONE
 };
 
+
 void displayPiece(size_t pieceNb, const Orientations &PIECES_ORIENTATIONS) {
     char orientation = 'a' + PIECES_ORIENTATIONS.at(pieceNb);
     cout << ++pieceNb << orientation << " ";
 }
 
-void displayPieces(const Pieces &PIECES, const Orientations &PIECES_ORIENTATIONS) {
-    for (size_t pieceNb = 0; pieceNb < PIECES.size(); ++pieceNb) {
-        displayPiece(pieceNb, PIECES_ORIENTATIONS);
+void displayPieces(const Pieces &TO_DISPLAY, const Orientations &PIECES_ORIENTATIONS) {
+    for (size_t pieceNb = 0; pieceNb < TO_DISPLAY.size(); ++pieceNb) {
+
+        Piece current = TO_DISPLAY.at(pieceNb);
+
+        auto realIt = find(PIECES.begin(), PIECES.end(), current);
+
+        auto realPosition = distance(PIECES.begin(), realIt);
+
+        displayPiece(realPosition, PIECES_ORIENTATIONS);
     }
     cout << endl;
 }
@@ -131,13 +139,13 @@ void placePiece(Pieces used, Pieces available, Orientations orientations) {
 
                 // check if we can add
                 if (pieceMatchesWithBoard(used, orientations, current)) {
+                    // add
                     placePiece(used, available, orientations);
+                    // rem
                 }
 
             }
 
-            // the current piece can't be used at the current position
-            //impossibleToUse.push_back(current);
             used.pop_back();
             orientations.pop_back();
             available.insert(currentIt, current);

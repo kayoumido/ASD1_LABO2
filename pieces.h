@@ -42,7 +42,7 @@ const unsigned PIECE_BY_LINE = 3;
 
 void displayPiece(size_t pieceNb, const Orientations &PIECES_ORIENTATIONS);
 
-void displayPieces(const Pieces &PIECES, const Orientations &PIECES_ORIENTATIONS);
+void displayPieces(const Pieces &TO_DISPLAY, const Orientations &PIECES_ORIENTATIONS);
 
 bool pieceMatchesWithBoard(const Pieces &BOARD, const Orientations &orientations, const Piece &TO_INSERT);
 
