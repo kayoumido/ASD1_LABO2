@@ -29,10 +29,10 @@ enum Sides {
 };
 
 
-using Piece         = std::array<AttachementType, 4>;
-using Pieces        = std::vector<Piece>;
-using Orientations  = std::vector<Sides>;
-using MatchingAttachement = std::array<AttachementType, 10>;
+using Piece                 = std::array<AttachementType, 4>;
+using Pieces                = std::vector<Piece>;
+using Orientations          = std::vector<Sides>;
+using MatchingAttachement   = std::array<AttachementType, 10>;
 
 
 extern const Pieces PIECES;
@@ -40,15 +40,17 @@ extern const Pieces PIECES;
 const unsigned NB_SIDES = 4;
 const unsigned PIECE_BY_LINE = 3;
 
+const Piece EMPTY = {NONE, NONE, NONE, NONE};
+
 void displayPiece(size_t pieceNb, const Orientations &PIECES_ORIENTATIONS);
 
 void displayPieces(const Pieces &TO_DISPLAY, const Orientations &PIECES_ORIENTATIONS);
 
-bool pieceMatchesWithBoard(const Pieces &BOARD, const Orientations &orientations, const Piece &TO_INSERT);
+bool pieceMatchesWithBoard(const Pieces &BOARD, const Orientations &orientations, const Piece &TO_INSERT, size_t pos);
 
 void turnPiece(const size_t PIECE_NB, Orientations &piecesOrientations);
 
-void placePiece(Pieces used, Pieces available, Orientations orientations);
+void placePiece(Pieces available, Pieces used = Pieces(9, EMPTY), Orientations orientations = Orientations(9, Sides::UP), unsigned pos = 0);
 
 bool areMatchingPieces(const AttachementType fixedPiece, const AttachementType testPiece);
 
