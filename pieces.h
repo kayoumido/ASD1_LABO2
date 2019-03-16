@@ -29,6 +29,7 @@ enum Sides {
 };
 
 
+
 using Piece         = std::array<AttachementType, 4>;
 using Pieces        = std::vector<Piece>;
 using Orientations  = std::vector<Sides>;
